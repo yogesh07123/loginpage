@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign-Up</title>
+    <style>
+        /* Base Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .form-slider {
+            position: relative;
+        }
+
+        .toggle-checkbox {
+            display: none;
+        }
+
+        .toggle-label {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 50px;
+            background: #fff;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-label::before {
+            content: 'Login';
+            color: #6e8efb;
+            font-size: 14px;
+        }
+
+        .toggle-checkbox:checked + .toggle-label::before {
+            content: 'Sign Up';
+            color: #a777e3;
+        }
+
+        .form-container {
+            position: relative;
+            padding: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form {
+            display: none;
+        }
+
+        #login-form {
+            display: block;
+        }
+
+        .toggle-checkbox:checked ~ .form-container #login-form {
+            display: none;
+        }
+
+        .toggle-checkbox:checked ~ .form-container #signup-form {
+            display: block;
+        }
+
+        .form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form button {
+            width: 100%;
+            padding: 10px;
+            background: #6e8efb;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .form button:hover {
+            background: #a777e3;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 5px;
+        }
+
+        /* Style for error message */
+        .error-message {
+            font-size: 12px;
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-slider">
+            <input type="checkbox" id="toggle" class="toggle-checkbox">
+            <label for="toggle" class="toggle-label"></label>
+            <div class="form-container">
+                <!-- Login Form -->
+                <form class="form" id="login-form">
+                    <h2>Login</h2>
+                    <input type="email" placeholder="Email" aria-label="Email" required>
+                    <input type="password" placeholder="Password" aria-label="Password" required>
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember Me</label>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <!-- Sign-Up Form -->
+                <form class="form hidden" id="signup-form">
+                    <h2>Sign Up</h2>
+                    <input type="text" placeholder="Full Name" aria-label="Full Name" required>
+                    <input type="email" placeholder="Email" aria-label="Email" required>
+                    <input type="password" placeholder="Password" aria-label="Password" required>
+                    <input type="password" placeholder="Confirm Password" aria-label="Confirm Password" required>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+
+            // Form validation function
+            function validateForm(form) {
+                let isValid = true;
+                const inputs = form.querySelectorAll('input[required]');
+                inputs.forEach(input => {
+                    if (input.value.trim() === '') {
+                        showError(input, `${input.placeholder} is required`);
+                        isValid = false;
+                    } else {
+                        removeError(input);
+                    }
+                });
+                return isValid;
+            }
+
+            // Show error message
+            function showError(input, message) {
+                removeError(input);
+                const errorElement = document.createElement('small');
+                errorElement.className = 'error-message';
+                errorElement.innerText = message;
+                input.style.borderColor = 'red';
+                input.insertAdjacentElement('afterend', errorElement);
+            }
+
+            // Remove error message
+            function removeError(input) {
+                const errorElement = input.nextElementSibling;
+                if (errorElement && errorElement.classList.contains('error-message')) {
+                    input.style.borderColor = '';
+                    errorElement.remove();
+                }
+            }
+
+            // Event listeners for form submission
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm(loginForm)) {
+                    alert('Login form is valid');
+                    // Proceed with form submission (e.g., AJAX call)
+                }
+            });
+
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm(signupForm)) {
+                    alert('Sign-Up form is valid');
+                    // Proceed with form submission (e.g., AJAX call)
+                }
+            });
+        });
+    </script>
+</body>
+</html>

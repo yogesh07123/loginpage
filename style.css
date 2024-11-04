@@ -1,0 +1,122 @@
+/* Base Styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.container {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.form-slider {
+    position: relative;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-label {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 50px;
+    background: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-label::before {
+    content: 'Login';
+    color: #6e8efb;
+    font-size: 14px;
+}
+
+.toggle-checkbox:checked + .toggle-label::before {
+    content: 'Sign Up';
+    color: #a777e3;
+}
+
+.form-container {
+    position: relative;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form {
+    display: none;
+}
+
+#login-form {
+    display: block;
+}
+
+.toggle-checkbox:checked ~ .form-container #login-form {
+    display: none;
+}
+
+.toggle-checkbox:checked ~ .form-container #signup-form {
+    display: block;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form button {
+    width: 100%;
+    padding: 10px;
+    background: #6e8efb;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.form button:hover {
+    background: #a777e3;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input {
+    margin-right: 5px;
+}
+/* Style for error message */
+.error-message {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* High-contrast mode adjustments */
+button:focus,
+input:focus {
+    outline: 2px solid #6e8efb;
+    outline-offset: 2px;
+}
